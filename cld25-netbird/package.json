@@ -1,0 +1,19 @@
+{
+  "name": "cld25-netbird",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@iconify-json/uil": "^1.2.3",
+    "@slidev/cli": "^52.10.1",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "slidev-addon-excalidraw": "^1.0.4",
+    "vite-svg-loader": "^5.1.0",
+    "vue": "^3.5.25"
+  }
+}
