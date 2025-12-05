@@ -120,7 +120,8 @@ transition: slide-up
 />
 
 <!--
-- VPN WireGuard als Mesh umgesetzt - jeder redet mit jedem
+- WireGuard als Mesh umgesetzt - jeder redet mit jedem
+- kein Routing durch die Nodes (über einen Node zum anderen)
 -->
 
 ---
@@ -153,7 +154,8 @@ transition: slide-up
 />
 
 <!--
-- VPN NetBird wie bei WireGuard als Mesh umgesetzt - jeder redet mit jedem
+- NetBird wie bei WireGuard als Mesh umgesetzt - jeder redet mit jedem
+- aber Möglichkeit über STUN/TURN NAT/Firewalls zu überbrücken
 - zentraler Management-Server steuert Zugriffe und macht Nodes miteinander bekannt
 -->
 
@@ -180,15 +182,22 @@ transition: slide-up
 
 # NetBird - Funktionen
 
-- Zentrale Verwaltung in Web-Interface und per API
-  - Benutzern
-  - Nodes
-  - Policies
+- Zentrale Verwaltung in Web-Interface
+- Native Clients für alle gängigen Betriebssysteme
 - Zero-Trust Ansatz
 - DNS Namen für jeden Client (`netbird.cloud` oder eigene Domain) 
 - Nodes können direkt verbundene Netzwerke anderen Nodes verfügbar machen
 - SSO mit OIDC, Google, GitHub, Microsoft Account und Okta
 - Feingranulare Zugriffssteuerung über Gruppenmitgliedschaft
+- API für Automatisierungen
+
+<!--
+- Verwaltung in Web-Interface
+- Clients Linux, Windows, macOS, iOS, Android & als Docker Image
+- Zero Trust - durch reine Verbindung zum VPN hat man nicht automatisch auf alles Zugriff durch Policies
+- Policies kann, muss man aber nicht nutzen
+- Router - ich habe ein Netzwerk wie mein Heimnetzwerk und will direkt auf Systeme ohne NetBird Client sprechen
+-->
 
 ---
 transition: slide-up
@@ -257,7 +266,7 @@ transition: slide-up
 transition: slide-up
 ---
 
-# NetBird - Varianten
+# NetBird - Server
 
 ## Cloud Service - netbird.io
   - Gratis bis zu 5 User und 100 Clients
@@ -276,6 +285,10 @@ cat getting-started-with-zitadel.sh
 export NETBIRD_DOMAIN=netbird.example.com
 bash getting-started-with-zitadel.sh
 ```
+
+<!--
+- Wie komme ich dazu NetBird zu verwenden?
+-->
 
 ---
 transition: slide-up
