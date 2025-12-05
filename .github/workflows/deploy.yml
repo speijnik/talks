@@ -33,10 +33,10 @@ jobs:
           cd cld25-netbird
           nci
 
-      - name: Build
+      - name: Build cld25-netbird
         run: |-
           cd cld25-netbird
-          nr build --base /${{github.event.repository.name}}/
+          nr build --base /${{github.event.repository.name}}/cld25-netbird/
 
       - name: Prepare dist folder
         run: |-
