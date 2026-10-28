@@ -3,7 +3,7 @@ theme: seriph
 layout: cover
 addons:
     - excalidraw
-title: Einfacher als gedacht - Kubernetes mit k3s auch für kleine Umgebungen
+title: 'Einfacher als gedacht: Kubernetes mit k3s auch für kleine Umgebungen'
 info: |
   ## Einfacher als gedacht
 
@@ -18,6 +18,7 @@ drawings:
 transition: slide-up
 mdc: true
 duration: 30min
+presenter: dev
 colorSchema: light
 fonts:
   sans: Geist
