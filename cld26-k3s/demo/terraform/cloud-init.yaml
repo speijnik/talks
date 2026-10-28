@@ -1,0 +1,12 @@
+#cloud-config
+# SSH-Zugang als Rückfall und curl für das k3s-Skript. k3s kommt im Vortrag live dazu.
+users:
+  - name: deploy
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+packages:
+  # Das Debian-Image bringt keinen SSH-Server mit
+  - openssh-server
+  - curl

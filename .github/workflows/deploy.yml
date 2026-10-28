@@ -32,16 +32,24 @@ jobs:
         run: |-
           cd cld25-netbird
           nci
+          cd ../cld26-k3s
+          nci
 
       - name: Build cld25-netbird
         run: |-
           cd cld25-netbird
           nr build --base /${{github.event.repository.name}}/cld25-netbird/
 
+      - name: Build cld26-k3s
+        run: |-
+          cd cld26-k3s
+          nr build --base /${{github.event.repository.name}}/cld26-k3s/
+
       - name: Prepare dist folder
         run: |-
          mkdir dist
          mv cld25-netbird/dist dist/cld25-netbird
+         mv cld26-k3s/dist dist/cld26-k3s
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

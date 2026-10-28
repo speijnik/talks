@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #eee;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+  #version { font-size: 14vw; font-weight: 700; line-height: 1; }
+  #hostname { font-size: 4vw; margin-top: 1rem; font-family: ui-monospace, monospace; }
+  #log { margin-top: 3rem; font-family: ui-monospace, monospace; font-size: 1.4vw; opacity: .8; list-style: none; padding: 0; text-align: center; }
+  .error { color: #ff6b6b; }
+</style>
+</head>
+<body>
+<div id="version">?</div>
+<div id="hostname"></div>
+<ul id="log"></ul>
+<script>
+  const colors = { v1: "#4dabf7", v2: "#69db7c", v3: "#ff6b6b" };
+  const log = document.getElementById("log");
+  function add(text, cls) {
+    const li = document.createElement("li");
+    li.textContent = new Date().toLocaleTimeString() + "  " + text;
+    if (cls) li.className = cls;
+    log.prepend(li);
+    while (log.children.length > 8) log.lastChild.remove();
+  }
+  async function poll() {
+    try {
+      const res = await fetch("/info", { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const info = await res.json();
+      const v = document.getElementById("version");
+      v.textContent = info.version;
+      v.style.color = colors[info.version] || "#eee";
+      document.getElementById("hostname").textContent = info.hostname;
+      add(info.version + "  " + info.hostname);
+    } catch (e) {
+      add("keine Antwort: " + e.message, "error");
+    }
+  }
+  setInterval(poll, 500);
+  poll();
+</script>
+</body>
+</html>

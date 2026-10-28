@@ -1,0 +1,358 @@
+/* Farben und Schrift angelehnt an docs.eoscloud.io und console.eoscloud.io */
+:root {
+  --eos-ink: #01242a;
+  --eos-ink-soft: #053843;
+  --eos-teal: #0f6e7e;
+  --eos-accent: #37aec0;
+  --eos-accent-light: #6ecbdb;
+  --eos-bg: #ecf3f4;
+  --eos-line: rgba(1, 36, 42, 0.12);
+  --slidev-code-background: #ffffff;
+}
+
+.slidev-layout {
+  background: var(--eos-bg);
+  color: var(--eos-ink);
+}
+
+.slidev-layout h1 {
+  color: var(--eos-ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--eos-accent);
+}
+
+.slidev-layout h2 {
+  color: var(--eos-teal);
+  font-weight: 600;
+}
+
+.slidev-layout a {
+  color: var(--eos-teal);
+  border-bottom-color: var(--eos-accent);
+}
+
+.slidev-layout li::marker {
+  color: var(--eos-accent);
+}
+
+.slidev-layout strong {
+  color: var(--eos-ink-soft);
+}
+
+.slidev-layout :not(pre) > code {
+  background: rgba(55, 174, 192, 0.12);
+  color: var(--eos-ink);
+}
+
+.slidev-layout pre,
+.slidev-layout .slidev-code {
+  border: 1px solid var(--eos-line);
+}
+
+.slidev-layout th {
+  color: var(--eos-teal);
+  font-weight: 600;
+}
+
+.slidev-layout td,
+.slidev-layout th {
+  border-color: var(--eos-line);
+}
+
+/* Dunkle Folien wie die Kopfzeile der Dokumentation */
+.slidev-layout.cover,
+.slidev-layout.intro,
+.slidev-layout.section,
+.slidev-layout.end {
+  background: var(--eos-ink);
+  color: rgba(236, 243, 244, 0.85);
+}
+
+.slidev-layout.cover h1,
+.slidev-layout.intro h1,
+.slidev-layout.section h1,
+.slidev-layout.end h1 {
+  color: #ffffff;
+  border-bottom-color: var(--eos-accent);
+}
+
+.slidev-layout.cover h2,
+.slidev-layout.intro h2,
+.slidev-layout.section h2,
+.slidev-layout.end h2 {
+  color: var(--eos-accent-light);
+}
+
+.slidev-layout.cover a,
+.slidev-layout.intro a,
+.slidev-layout.section a,
+.slidev-layout.end a {
+  color: var(--eos-accent-light);
+}
+
+.slidev-layout.cover strong,
+.slidev-layout.intro strong,
+.slidev-layout.section strong,
+.slidev-layout.end strong {
+  color: #ffffff;
+}
+
+.slidev-layout.section h1 {
+  font-weight: 700;
+}
+
+.slidev-layout.section ol,
+.slidev-layout.section ul {
+  display: inline-block;
+  text-align: left;
+}
+
+/* Logos auf der Vorstellungsfolie, jeweils auf einer hellen Kachel */
+.logo-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.logo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0.7rem 0;
+}
+
+.logo-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 35%;
+  background: #f4f4f5;
+  overflow: hidden;
+}
+
+.logo-tile > img {
+  width: 62%;
+  height: 62%;
+}
+
+.logo-tile > svg {
+  width: 78%;
+  height: 78%;
+}
+
+.logo-tile.full > img {
+  width: 100%;
+  height: 100%;
+}
+
+.slidev-layout.intro p {
+  color: var(--eos-accent-light);
+  opacity: 1;
+}
+
+/* Fazit: zwei Aussagen und ein Aufruf zum Ausprobieren */
+.eos-card {
+  background: #ffffff;
+  border: 1px solid var(--eos-line);
+  border-top: 4px solid var(--eos-accent);
+  border-radius: 8px;
+  padding: 1.1rem 1.4rem;
+}
+
+.eos-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--eos-teal);
+}
+
+.eos-card-head {
+  margin: 0.3rem 0 0.4rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--eos-ink);
+}
+
+.eos-card p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.eos-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.6rem;
+  padding: 1rem 1.4rem;
+  border-radius: 8px;
+  background: var(--eos-ink);
+  color: rgba(236, 243, 244, 0.85);
+}
+
+.eos-cta-head {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.eos-cta p {
+  margin: 0.2rem 0 0;
+  line-height: 1.5;
+}
+
+.eos-cta a {
+  color: var(--eos-accent-light);
+  font-weight: 600;
+}
+
+.eos-qr {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 6px;
+}
+
+/* Hinweisbox, etwa für Alternativen */
+.eos-note {
+  margin-top: 1.2rem;
+  padding: 0.7rem 1rem;
+  border-left: 3px solid var(--eos-accent);
+  background: rgba(55, 174, 192, 0.08);
+  font-size: 0.9em;
+}
+
+.eos-note p {
+  margin: 0;
+}
+
+/* Untertitel direkt unter der Überschrift nicht abblenden */
+.slidev-layout h1 + p {
+  opacity: 1;
+  color: var(--eos-teal);
+}
+
+.eos-questions {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--eos-ink);
+}
+
+/* Kompaktere Karten für Folien mit mehr Inhalt */
+.eos-card.sm {
+  padding: 0.8rem 1.2rem;
+}
+
+.eos-card.sm .eos-card-head {
+  font-size: 1.35rem;
+}
+
+.eos-card.xs {
+  padding: 0.6rem 1.1rem;
+}
+
+.eos-card.xs .eos-card-head {
+  font-size: 1.15rem;
+  margin-bottom: 0;
+}
+
+.eos-card ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.eos-card li {
+  margin: 0.15rem 0;
+}
+
+/* Dunkles Band für Kernaussagen */
+.eos-band {
+  padding: 0.8rem 1.4rem;
+  border-radius: 8px;
+  background: var(--eos-ink);
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.eos-card.xs p {
+  margin: 0.15rem 0 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.eos-note.sm {
+  margin-top: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8em;
+}
+
+/* Vergleich: eine Karte pro Zeile, compose links gedämpft, Kubernetes rechts betont */
+.eos-cmp {
+  display: grid;
+  grid-template-columns: 12rem 1fr 1.5rem 1fr;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.eos-card.eos-cmp {
+  padding: 0.55rem 1.1rem;
+  border-top-width: 3px;
+}
+
+.eos-cmp-header {
+  margin: 0.8rem 0 0.4rem;
+  padding: 0 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--eos-teal);
+}
+
+.eos-cmp .eos-card-label {
+  line-height: 1.3;
+}
+
+.eos-cmp-old {
+  font-size: 0.85em;
+  line-height: 1.35;
+  color: rgba(1, 36, 42, 0.65);
+}
+
+.eos-cmp-arrow {
+  color: var(--eos-accent);
+  font-weight: 700;
+  text-align: center;
+}
+
+.eos-cmp-new {
+  font-size: 0.85em;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--eos-ink);
+}
+
+/* Soll und Ist: Ereignis und Reaktion des Loops */
+.eos-event {
+  display: grid;
+  grid-template-columns: 9rem 1.5rem 1fr;
+  align-items: center;
+  margin-top: 0.35rem;
+  font-size: 0.95em;
+}
+
+.eos-event > span:first-child {
+  color: rgba(1, 36, 42, 0.65);
+}
+
+.eos-event strong {
+  color: var(--eos-ink);
+}
