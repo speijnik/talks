@@ -33,6 +33,12 @@ spec:
               path: /readyz
               port: 8080
             periodSeconds: 2
+          # Alter Pod antwortet noch kurz weiter, bis Traefik ihn nicht mehr anspricht.
+          # Sonst landen beim Update einzelne Anfragen auf einem schon beendeten Pod (502).
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
           resources:
             requests:
               cpu: 10m

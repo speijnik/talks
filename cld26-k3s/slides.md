@@ -515,6 +515,7 @@ transition: slide-up
 - Soll-Zustand: Docker startet abgestürzte Container per restart-Policy neu. Gelöschte Container, falsche Anzahl oder Version korrigiert erst das nächste up
 - Alles davon lässt sich mit compose nachbauen, aber man muss es wissen und dazubauen
 - Kubernetes-Update unterbrechungsfrei dank Readiness Probe. Ohne Probe bekommt ein Pod schon Traffic, bevor er bereit ist
+- Für das Abbauen der alten Pods steht im Repo zusätzlich eine kurze Pause vor dem Beenden (preStop). Ohne sie gibt es beim Update vereinzelt 502
 - Update mit compose und Traefik: zwei Dienste mit denselben Labels, Traefik verteilt nur auf gesunde Container. Nacheinander aktualisieren und auf healthy warten bleibt Handarbeit oder ein Skript
 - Rollback: mit compose derselbe Weg wie beim Update, nur mit der alten Version. Kubernetes merkt sich die Revisionen, ein Befehl genügt
 - Es gibt Zusatzwerkzeuge wie das Plugin docker rollout, die so ein Update automatisieren. Nicht Teil von compose, muss man dazubauen
