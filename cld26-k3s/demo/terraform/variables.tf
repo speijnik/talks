@@ -13,7 +13,7 @@ variable "product_name" {
 variable "image_name" {
   description = "Image der VM"
   type        = string
-  default     = "Debian 13"
+  default     = "Debian 13 Cloud"
 }
 
 variable "ssh_public_key" {
