@@ -1,5 +1,5 @@
 #cloud-config
-# SSH-Zugang als Rückfall sowie curl und less für das k3s-Skript. k3s kommt im Vortrag live dazu.
+# SSH-Zugang als Rückfall mit sudo für den Benutzer deploy, curl und less für das k3s-Skript. k3s kommt im Vortrag live dazu.
 users:
   - name: deploy
     sudo: ALL=(ALL) NOPASSWD:ALL
@@ -11,3 +11,4 @@ packages:
   - openssh-server
   - curl
   - less
+  - sudo
