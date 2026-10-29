@@ -547,7 +547,8 @@ layout: section
 - Falls die Konsole hakt: per SSH als deploy anmelden
 - Alle Befehle liegen per cloud-init im Verlauf von root, bei Bedarf mit Strg+R suchen statt abtippen. BASE ist schon gesetzt
 - Während der Installation: was k3s mitbringt
-- k3s-Installation live: Skript laden, kurz durchblättern, ausführen
+- k3s-Installation live: Skript laden, Prüfsumme prüfen, ausführen. Dazu sagen: ein Skript aus dem Internet als root immer erst lesen. Dieses habe ich vorab gelesen und mir die Prüfsumme notiert, stimmt sie, ist es genau dieses Skript
+- Meldet sha256sum FAILED, hat get.k3s.io eine neuere Version. Dann mit Strg+R nach 2977 suchen, das lädt die gelesene Version über den gepinnten k3s-Commit
 - Die Seite zeigt pro Pod eine Kachel mit Version, ein verschwundener Pod wird grau. Pod-Wechsel und Update sind so am Projektor sichtbar
 - v3: Readiness Probe schlägt fehl, Rollout bleibt stehen, alte Pods liefern weiter aus
 - Vor dem Rollback kubectl describe pod auf den neuen Pod: unter Events steht "Readiness probe failed" mit Statuscode 503. So sucht man Fehler im Alltag
@@ -662,7 +663,7 @@ routeAlias: spick
 
 ```shell
 curl -sfL -o /tmp/install-k3s.sh https://get.k3s.io
-less /tmp/install-k3s.sh
+echo "e5cc3b3d9dfc1662c2d9be6da5abc9a4cd317d6abc3a5ffc02e3dd3248207fee  /tmp/install-k3s.sh" | sha256sum -c
 sudo sh /tmp/install-k3s.sh
 
 BASE=https://raw.githubusercontent.com/speijnik/talks/main/cld26-k3s/demo/k8s

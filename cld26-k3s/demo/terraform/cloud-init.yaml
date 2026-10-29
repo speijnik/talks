@@ -12,12 +12,16 @@ packages:
   - curl
   - less
   - sudo
-# Befehle der Demo im Verlauf von root, bei Bedarf mit Strg+R abrufbar
+# Befehle der Demo im Verlauf von root, bei Bedarf mit Strg+R abrufbar.
+# Prüfsumme der vorab gelesenen install.sh. Der erste Eintrag lädt genau diese Version
+# über den k3s-Commit 2977c525a2e7, falls get.k3s.io inzwischen eine neuere ausliefert.
 write_files:
   - path: /root/.bash_history
     permissions: "0600"
     content: |
+      curl -sfL -o /tmp/install-k3s.sh https://raw.githubusercontent.com/k3s-io/k3s/2977c525a2e7/install.sh
       curl -sfL -o /tmp/install-k3s.sh https://get.k3s.io
+      echo "e5cc3b3d9dfc1662c2d9be6da5abc9a4cd317d6abc3a5ffc02e3dd3248207fee  /tmp/install-k3s.sh" | sha256sum -c
       less /tmp/install-k3s.sh
       sudo sh /tmp/install-k3s.sh
       kubectl get nodes
