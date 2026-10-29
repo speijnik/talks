@@ -4,45 +4,124 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@500&display=swap">
 <style>
-  body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #eee;
-         display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-  #version { font-size: 14vw; font-weight: 700; line-height: 1; }
-  #hostname { font-size: 4vw; margin-top: 1rem; font-family: ui-monospace, monospace; }
-  #log { margin-top: 3rem; font-family: ui-monospace, monospace; font-size: 1.4vw; opacity: .8; list-style: none; padding: 0; text-align: center; }
-  .error { color: #ff6b6b; }
+  /* Farben und Schrift wie in den Folien */
+  :root {
+    --ink: #01242a;
+    --teal: #0f6e7e;
+    --accent: #37aec0;
+    --bg: #ecf3f4;
+    --line: rgba(1, 36, 42, 0.12);
+    --v1: #0f6e7e;
+    --v2: #d9822b;
+    --v3: #c92a2a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; padding: 4vh 4vw; background: var(--bg); color: var(--ink);
+         font-family: Geist, system-ui, sans-serif; display: flex; flex-direction: column; }
+  h1 { margin: 0 0 3vh; padding-bottom: 1vh; border-bottom: 3px solid var(--accent);
+       font-size: 3.2vw; font-weight: 700; letter-spacing: -0.01em; }
+  #pods { flex: 1; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2vw; }
+  .pod { width: 21vw; padding: 4vh 1.5vw; border-radius: 8px; text-align: center;
+         background: #fff; border: 1px solid var(--line); border-top: 0.8vw solid var(--c);
+         transition: opacity .4s, filter .4s; }
+  .pod .version { font-size: 10vw; font-weight: 700; line-height: 1; color: var(--c); }
+  .pod .name { margin-top: 2vh; font-family: "Geist Mono", ui-monospace, monospace; font-size: 3vw; }
+  .pod.gone { opacity: .35; filter: grayscale(1); border-top-style: dashed; }
+  .pod.gone .name::after { content: " weg"; font-family: Geist, system-ui, sans-serif; }
+  #summary { margin-top: 3vh; padding: 2vh 2vw; border-radius: 8px; background: var(--ink); color: #fff;
+             font-size: 3.4vw; font-weight: 700; text-align: center; }
+  #summary.error { background: var(--v3); }
 </style>
 </head>
 <body>
-<div id="version">?</div>
-<div id="hostname"></div>
-<ul id="log"></ul>
+<h1>Pods hinter dem Service</h1>
+<div id="pods"></div>
+<div id="summary">warte auf Antwort</div>
 <script>
-  const colors = { v1: "#4dabf7", v2: "#69db7c", v3: "#ff6b6b" };
-  const log = document.getElementById("log");
-  function add(text, cls) {
-    const li = document.createElement("li");
-    li.textContent = new Date().toLocaleTimeString() + "  " + text;
-    if (cls) li.className = cls;
-    log.prepend(li);
-    while (log.children.length > 8) log.lastChild.remove();
+  // Jede Anfrage kann bei einem anderen Pod landen. Die Seite merkt sich, welcher
+  // Pod wann zuletzt geantwortet hat, und zeigt pro Pod eine Kachel.
+  const GONE_AFTER = 3000;
+  const REMOVE_AFTER = 12000;
+  const pods = new Map();
+  let lastOk = 0;
+
+  function shortName(hostname) {
+    // demo-6d4f9c7b8-x7k2p: nur der zufällige Teil am Ende
+    const parts = hostname.split("-");
+    return parts[parts.length - 1].slice(0, 8);
   }
-  async function poll() {
-    try {
-      const res = await fetch("/info", { cache: "no-store" });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const info = await res.json();
-      const v = document.getElementById("version");
-      v.textContent = info.version;
-      v.style.color = colors[info.version] || "#eee";
-      document.getElementById("hostname").textContent = info.hostname;
-      add(info.version + "  " + info.hostname);
-    } catch (e) {
-      add("keine Antwort: " + e.message, "error");
+
+  function render() {
+    const now = Date.now();
+    const box = document.getElementById("pods");
+    const counts = {};
+    for (const [hostname, pod] of pods) {
+      const age = now - pod.seen;
+      if (age > REMOVE_AFTER) {
+        pod.el.remove();
+        pods.delete(hostname);
+        continue;
+      }
+      pod.el.classList.toggle("gone", age > GONE_AFTER);
+      if (age <= GONE_AFTER) counts[pod.version] = (counts[pod.version] || 0) + 1;
+      if (!pod.el.isConnected) box.append(pod.el);
+    }
+    const summary = document.getElementById("summary");
+    const failing = now - lastOk > GONE_AFTER;
+    summary.classList.toggle("error", failing && lastOk > 0);
+    if (failing) {
+      summary.textContent = lastOk > 0 ? "keine Antwort" : "warte auf Antwort";
+    } else {
+      summary.textContent = Object.keys(counts).sort()
+        .map(v => counts[v] + " × " + v).join(", ");
     }
   }
-  setInterval(poll, 500);
-  poll();
+
+  function tile(hostname, version) {
+    const el = document.createElement("div");
+    el.className = "pod";
+    el.style.setProperty("--c", `var(--${version}, var(--ink))`);
+    const v = document.createElement("div");
+    v.className = "version";
+    v.textContent = version;
+    const n = document.createElement("div");
+    n.className = "name";
+    n.textContent = shortName(hostname);
+    n.title = hostname;
+    el.append(v, n);
+    return el;
+  }
+
+  async function poll() {
+    try {
+      const res = await fetch("/info", { cache: "no-store", signal: AbortSignal.timeout(1000) });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const info = await res.json();
+      let pod = pods.get(info.hostname);
+      if (!pod || pod.version !== info.version) {
+        if (pod) pod.el.remove();
+        pod = { version: info.version, el: tile(info.hostname, info.version) };
+        pods.set(info.hostname, pod);
+      }
+      pod.seen = lastOk = Date.now();
+    } catch (e) {
+      // Ausfälle zeigt render() über lastOk an
+    }
+  }
+
+  async function loop() {
+    for (;;) {
+      await poll();
+      render();
+      await new Promise(r => setTimeout(r, 250));
+    }
+  }
+  setInterval(render, 500);
+  loop();
 </script>
 </body>
 </html>

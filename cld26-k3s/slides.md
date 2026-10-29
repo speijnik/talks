@@ -546,7 +546,7 @@ layout: section
 - SSH als deploy bleibt der Rückfall, falls die Konsole hakt
 - Während der Installation: was k3s mitbringt
 - k3s-Installation live: Skript laden, kurz durchblättern, ausführen
-- Die App zeigt Hostname und Version, Pod-Wechsel und Update sind am Projektor sichtbar
+- Die Seite zeigt pro Pod eine Kachel mit Version, ein verschwundener Pod wird grau. Pod-Wechsel und Update sind so am Projektor sichtbar
 - v3: Readiness Probe schlägt fehl, Rollout bleibt stehen, alte Pods liefern weiter aus
 - Vor dem Rollback kubectl describe pod auf den neuen Pod: unter Events steht "Readiness probe failed" mit Statuscode 503. So sucht man Fehler im Alltag
 - Danach rollout undo

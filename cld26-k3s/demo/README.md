@@ -3,7 +3,8 @@
 Material zur Demo aus dem Vortrag. Alles hier lässt sich nachbauen.
 
 * `app/`: kleine Web-App (Flask und Gunicorn), die Hostname und Version anzeigt. Die Seite fragt laufend
-  `/info` ab, dadurch werden Pod-Wechsel, Updates und Ausfälle im Browser sichtbar.
+  `/info` ab und zeigt pro antwortendem Pod eine Kachel mit Version. Pod-Wechsel, Updates und
+  Ausfälle werden so im Browser sichtbar.
 * `compose.yml`: dieselbe App mit docker compose und Traefik, zum Vergleich
 * `k8s/`: Deployment, Service und Ingress
 * `terraform/`: VM auf [netcup eos](https://docs.eoscloud.io/products/howtos/terraform-provider-eoscloud-installation/)

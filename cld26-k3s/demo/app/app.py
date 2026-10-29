@@ -1,5 +1,5 @@
-"""Demo-App für den Vortrag: zeigt Hostname und Version groß an, damit Pod-Wechsel
-und Rolling Updates am Projektor sichtbar werden."""
+"""Demo-App für den Vortrag: die Seite zeigt pro Pod eine Kachel mit Version, damit
+Pod-Wechsel und Rolling Updates am Projektor sichtbar werden."""
 
 import os
 import socket
