@@ -4,6 +4,12 @@ variable "name" {
   default     = "k3s-demo"
 }
 
+variable "block_name" {
+  description = "Block, in dem die VM läuft"
+  type        = string
+  default     = "at-preview1-db"
+}
+
 variable "product_name" {
   description = "VM-Produkt, die k3s-Doku nennt 2 CPU-Kerne und 2 GB RAM"
   type        = string

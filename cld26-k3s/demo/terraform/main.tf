@@ -15,7 +15,7 @@ data "eoscloud_products" "all" {}
 data "eoscloud_vm_images" "all" {}
 
 locals {
-  block_id   = data.eoscloud_blocks.all.blocks[0].id
+  block_id   = [for b in data.eoscloud_blocks.all.blocks : b.id if b.name == var.block_name][0]
   product_id = [for p in data.eoscloud_products.all.products : p.id if p.active && p.kind == "vm" && p.name == var.product_name][0]
   image_id   = [for i in data.eoscloud_vm_images.all.vm_images : i.id if i.name == var.image_name][0]
 }
