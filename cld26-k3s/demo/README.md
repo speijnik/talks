@@ -41,7 +41,7 @@ APP_VERSION=v1 .venv/bin/flask run --port 8080
 
 Ohne netcup eos geht es genauso: jede Debian- oder Ubuntu-Maschine mit mindestens
 2 GB RAM und erreichbarem Port 80 reicht, auch ein Raspberry Pi. Dann den ersten
-Block überspringen, curl installieren und bei „k3s installieren" beginnen.
+Block überspringen, curl und less installieren und bei „k3s installieren" beginnen.
 
 ```shell
 # VM erzeugen (Zugangsdaten über EOS_CLIENT_ID und EOS_CLIENT_SECRET)

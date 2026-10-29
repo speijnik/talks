@@ -538,7 +538,7 @@ layout: section
 
 <!--
 - Zeit: 6:45, Ziel: bei 23:45 fertig
-- VM ist vorab per tofu apply erzeugt, curl ist per cloud-init schon installiert. Je nach Zeit vorab oder im Vortrag in der Oberfläche von netcup eos einschalten, dann Konsole öffnen
+- VM ist vorab per tofu apply erzeugt, curl und less sind per cloud-init schon installiert. Je nach Zeit vorab oder im Vortrag in der Oberfläche von netcup eos einschalten, dann Konsole öffnen
 - Beim Wechsel in die Oberfläche: wie gesagt, das ginge auf jeder VM
 - In der Konsole k3s installieren
 - Öffentliche IP in der Oberfläche nachsehen und im Browser öffnen
