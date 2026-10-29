@@ -32,22 +32,20 @@ resource "eoscloud_acl_rule" "allow" {
   acl_id            = eoscloud_acl.k3s.id
   action            = "allow"
   protocol          = "tcp"
-  sources           = ["0.0.0.0/0"]
   destination_ports = [each.value]
 }
 
 # Echo Request: Typ 8 bei ICMPv4, Typ 128 bei ICMPv6
 resource "eoscloud_acl_rule" "ping" {
   for_each = {
-    icmp4 = { type = "8", source = "0.0.0.0/0" }
-    icmp6 = { type = "128", source = "::/0" }
+    icmp4 = "8"
+    icmp6 = "128"
   }
 
   acl_id    = eoscloud_acl.k3s.id
   action    = "allow"
   protocol  = each.key
-  sources   = [each.value.source]
-  icmp_type = each.value.type
+  icmp_type = each.value
 }
 
 resource "eoscloud_network" "k3s" {
