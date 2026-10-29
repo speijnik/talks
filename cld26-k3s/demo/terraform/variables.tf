@@ -5,9 +5,9 @@ variable "name" {
 }
 
 variable "product_name" {
-  description = "VM-Produkt, k3s braucht mindestens 2 GB RAM"
+  description = "VM-Produkt, die k3s-Doku nennt 2 CPU-Kerne und 2 GB RAM"
   type        = string
-  default     = "vServer Medium"
+  default     = "vServer Small"
 }
 
 variable "image_name" {
