@@ -529,7 +529,7 @@ layout: section
 
 # Demo
 
-1. VM starten
+1. Konsole öffnen
 2. k3s installieren
 3. Demo-App deployen
 4. Pod töten
@@ -539,10 +539,10 @@ layout: section
 
 <!--
 - Zeit: 6:45, Ziel: bei 23:45 fertig
-- VM ist vorab per tofu apply erzeugt, curl und less sind per cloud-init schon installiert. Je nach Zeit vorab oder im Vortrag in der Oberfläche von netcup eos einschalten, dann Konsole öffnen
+- VM etwa 10 Minuten vor dem Vortrag frisch per tofu apply erzeugen, IP notieren und Browser-Tab vorbereiten. curl und less sind per cloud-init schon installiert
 - Beim Wechsel in die Oberfläche: wie gesagt, das ginge auf jeder VM
 - In der Konsole k3s installieren
-- Öffentliche IP in der Oberfläche nachsehen und im Browser öffnen
+- Nach dem Deploy den vorbereiteten Browser-Tab neu laden, vorher lauscht auf Port 80 noch nichts
 - Offen sind laut ACL nur die Ports 22 und 80, die Kubernetes-API (6443) ist von außen nicht erreichbar
 - Falls die Konsole hakt: per SSH als deploy anmelden
 - Alle Befehle liegen per cloud-init im Verlauf von root, bei Bedarf mit Strg+R suchen statt abtippen. BASE ist schon gesetzt
@@ -552,7 +552,7 @@ layout: section
 - v3: Readiness Probe schlägt fehl, Rollout bleibt stehen, alte Pods liefern weiter aus
 - Vor dem Rollback kubectl describe pod auf den neuen Pod: unter Events steht "Readiness probe failed" mit Statuscode 503. So sucht man Fehler im Alltag
 - Danach rollout undo
-- Ablauf: Konsole 0:15, k3s 1:30, IP und Browser 0:30, Deploy 1:00, Pod töten 0:45, v2 1:00, v3 mit describe 1:15, Rollback 0:30
+- Ablauf: Konsole 0:15, k3s 1:30, Browser 0:15, Deploy 1:00, Pod töten 0:45, v2 1:00, v3 mit describe 1:15, Rollback 0:30, Puffer 0:15
 - Bei Zeitnot entfällt der Schritt mit v3, spart etwa 1:45
 - Fallback: Screencast, zweite fertige VM
 -->
