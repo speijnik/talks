@@ -25,7 +25,7 @@ resource "eoscloud_acl" "k3s" {
   name     = "${var.name}-acl"
 }
 
-# Nur SSH und HTTP. kubectl läuft direkt auf der VM, 6443 bleibt zu.
+# Nur SSH, HTTP und Ping. kubectl läuft direkt auf der VM, 6443 bleibt zu.
 resource "eoscloud_acl_rule" "allow" {
   for_each = toset(["22", "80"])
 
@@ -34,6 +34,20 @@ resource "eoscloud_acl_rule" "allow" {
   protocol          = "tcp"
   sources           = ["0.0.0.0/0"]
   destination_ports = [each.value]
+}
+
+# Echo Request: Typ 8 bei ICMPv4, Typ 128 bei ICMPv6
+resource "eoscloud_acl_rule" "ping" {
+  for_each = {
+    icmp4 = { type = "8", source = "0.0.0.0/0" }
+    icmp6 = { type = "128", source = "::/0" }
+  }
+
+  acl_id    = eoscloud_acl.k3s.id
+  action    = "allow"
+  protocol  = each.key
+  sources   = [each.value.source]
+  icmp_type = each.value.type
 }
 
 resource "eoscloud_network" "k3s" {

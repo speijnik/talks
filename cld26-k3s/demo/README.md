@@ -7,7 +7,7 @@ Material zur Demo aus dem Vortrag. Alles hier lässt sich nachbauen.
 * `compose.yml`: dieselbe App mit docker compose und Traefik, zum Vergleich
 * `k8s/`: Deployment, Service und Ingress
 * `terraform/`: VM auf [netcup eos](https://docs.eoscloud.io/products/howtos/terraform-provider-eoscloud-installation/)
-  mit Netzwerk, ACL (22 und 80) und öffentlicher IP. Geschrieben für [OpenTofu](https://opentofu.org/),
+  mit Netzwerk, ACL (22, 80 und Ping) und öffentlicher IP. Geschrieben für [OpenTofu](https://opentofu.org/),
   läuft unverändert auch mit Terraform
 
 ## Images
