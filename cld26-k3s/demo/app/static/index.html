@@ -24,12 +24,14 @@
          font-family: Geist, system-ui, sans-serif; display: flex; flex-direction: column; }
   h1 { margin: 0 0 3vh; padding-bottom: 1vh; border-bottom: 3px solid var(--accent);
        font-size: 3.2vw; font-weight: 700; letter-spacing: -0.01em; }
-  #pods { flex: 1; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2vw; }
-  .pod { width: 21vw; padding: 4vh 1.5vw; border-radius: 8px; text-align: center;
+  /* Immer eine Zeile: bei mehr als vier Kacheln werden alle schmaler, --n setzt das Skript */
+  #pods { --n: 4; --w: calc((92vw - (var(--n) - 1) * 2vw) / var(--n));
+          flex: 1; display: flex; align-items: center; justify-content: center; gap: 2vw; }
+  .pod { width: var(--w); padding: 4vh 0; border-radius: 8px; text-align: center;
          background: #fff; border: 1px solid var(--line); border-top: 0.8vw solid var(--c);
          transition: opacity .4s, filter .4s; }
-  .pod .version { font-size: 10vw; font-weight: 700; line-height: 1; color: var(--c); }
-  .pod .name { margin-top: 2vh; font-family: "Geist Mono", ui-monospace, monospace; font-size: 3vw; }
+  .pod .version { font-size: calc(var(--w) * 0.46); font-weight: 700; line-height: 1; color: var(--c); }
+  .pod .name { margin-top: 2vh; font-family: "Geist Mono", ui-monospace, monospace; font-size: calc(var(--w) * 0.14); }
   .pod.gone { opacity: .35; filter: grayscale(1); border-top-style: dashed; }
   .pod.gone .name::after { content: " weg"; font-family: Geist, system-ui, sans-serif; }
   #summary { margin-top: 3vh; padding: 2vh 2vw; border-radius: 8px; background: var(--ink); color: #fff;
@@ -70,6 +72,7 @@
       if (age <= GONE_AFTER) counts[pod.version] = (counts[pod.version] || 0) + 1;
       if (!pod.el.isConnected) box.append(pod.el);
     }
+    box.style.setProperty("--n", Math.max(4, pods.size));
     const summary = document.getElementById("summary");
     const failing = now - lastOk > GONE_AFTER;
     summary.classList.toggle("error", failing && lastOk > 0);
