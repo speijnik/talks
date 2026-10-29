@@ -544,7 +544,8 @@ layout: section
 - In der Konsole k3s installieren
 - Öffentliche IP in der Oberfläche nachsehen und im Browser öffnen
 - Offen sind laut ACL nur die Ports 22 und 80, die Kubernetes-API (6443) ist von außen nicht erreichbar
-- SSH als deploy bleibt der Rückfall, falls die Konsole hakt
+- Falls die Konsole hakt: per SSH als deploy anmelden
+- Alle Befehle liegen per cloud-init im Verlauf von root, bei Bedarf mit Strg+R suchen statt abtippen. BASE ist schon gesetzt
 - Während der Installation: was k3s mitbringt
 - k3s-Installation live: Skript laden, kurz durchblättern, ausführen
 - Die Seite zeigt pro Pod eine Kachel mit Version, ein verschwundener Pod wird grau. Pod-Wechsel und Update sind so am Projektor sichtbar

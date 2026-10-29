@@ -1,5 +1,5 @@
 #cloud-config
-# SSH-Zugang als Rückfall mit sudo für den Benutzer deploy, curl und less für das k3s-Skript. k3s kommt im Vortrag live dazu.
+# SSH-Zugang mit sudo für den Benutzer deploy, falls die Konsole hakt. curl und less für das k3s-Skript, k3s kommt im Vortrag live dazu.
 users:
   - name: deploy
     sudo: ALL=(ALL) NOPASSWD:ALL
@@ -12,3 +12,27 @@ packages:
   - curl
   - less
   - sudo
+# Befehle der Demo im Verlauf von root, bei Bedarf mit Strg+R abrufbar
+write_files:
+  - path: /root/.bash_history
+    permissions: "0600"
+    content: |
+      curl -sfL -o /tmp/install-k3s.sh https://get.k3s.io
+      less /tmp/install-k3s.sh
+      sudo sh /tmp/install-k3s.sh
+      kubectl get nodes
+      kubectl apply -f $BASE/deployment.yaml -f $BASE/service.yaml -f $BASE/ingress.yaml
+      kubectl get pods -w
+      kubectl delete $(kubectl get pods -l app=demo -o name | head -n 1)
+      kubectl set image deployment/demo demo=ghcr.io/speijnik/talks/cld26-k3s-demo:v2
+      kubectl rollout status deployment/demo
+      kubectl set image deployment/demo demo=ghcr.io/speijnik/talks/cld26-k3s-demo:v3
+      kubectl get pods
+      kubectl describe $(kubectl get pods -l app=demo --sort-by=.metadata.creationTimestamp -o name | tail -n 1)
+      kubectl rollout undo deployment/demo
+  - path: /root/.bashrc
+    append: true
+    content: |
+
+      # Manifeste der Demo direkt aus dem Repository
+      export BASE=https://raw.githubusercontent.com/speijnik/talks/main/cld26-k3s/demo/k8s

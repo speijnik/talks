@@ -9,7 +9,8 @@ Material zur Demo aus dem Vortrag. Alles hier lässt sich nachbauen.
 * `k8s/`: Deployment, Service und Ingress
 * `terraform/`: VM auf [netcup eos](https://docs.eoscloud.io/products/howtos/terraform-provider-eoscloud-installation/)
   mit Netzwerk, ACL (22, 80 und Ping) und öffentlicher IP. Geschrieben für [OpenTofu](https://opentofu.org/),
-  läuft unverändert auch mit Terraform
+  läuft unverändert auch mit Terraform. cloud-init legt die Befehle der Demo im Verlauf von root ab
+  und setzt `BASE` für die Manifeste, beides nur als Hilfe im Vortrag
 
 ## Images
 
